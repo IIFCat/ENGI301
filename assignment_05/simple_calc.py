@@ -1,7 +1,7 @@
 # -*- coding: utf-8 -*-
 """
 --------------------------------------------------------------------------
-blink_USR3
+Simple Calculator
 --------------------------------------------------------------------------
 License:   
 Copyright 2018 <Sammi Lu>
@@ -33,7 +33,25 @@ ARISING IN ANY WAY OUT OF THE USE OF THIS SOFTWARE, EVEN IF ADVISED OF
 THE POSSIBILITY OF SUCH DAMAGE.
 --------------------------------------------------------------------------
 
-UPDATES THIS PART
+Simple calculator that will 
+  - Take in two numbers from the user
+  - Take in an operator from the user
+  - Perform the mathematical operation and provide the number to the user
+  - Repeat
+
+Operations:
+  - addition
+  - subtraction
+  - multiplication
+  - division
+  - exponentiation
+  - left shift (integer)
+  - right shift (integer)
+  - modulo
+
+Error conditions:
+  - Invalid operator --> Program should exit
+  - Invalid number   --> Program should exit
 
 --------------------------------------------------------------------------
 """
@@ -42,21 +60,76 @@ UPDATES THIS PART
 # Constants
 # ------------------------------------------------------------------------
 
-import Adafruit_BBIO.GPIO as GPIO
-import time
+import sys
+import operator
+
+# convert python version
+if sys.version[0] == "2":
+    input = raw_input
 
 # ------------------------------------------------------------------------
 # Global variables
 # ------------------------------------------------------------------------
 
-GPIO.setup("USR3", GPIO.OUT)
+# 10.3 operator
+operators = {
+    "+"   : operator.add,
+    "-"   : operator.sub,
+    "*"   : operator.mul,
+    "/"   : operator.truediv,
+    "pow" : pow,
+    ">>"  : operator.rshift,
+    "<<"  : operator.lshift,
+    "mod" : operator.mod
+}
 
+# ------------------------------------------------------------------------
+# Functions
+# ------------------------------------------------------------------------
+
+def get_user_input():
+    print("Get User Input")
+    
+    try:
+        
+        num1 = float(input("  1st number                   : "))
+        num2 = float(input("  2nd number                   : "))
+        op   = input("  Operator (+, -, *, /, pow, >>, <<, mod): ")
+        
+        return (num1, num2, op)
+    except:
+        print("\nInvalid Input")
+        return(None, None, None)
+        
+# End def
+    
 # ------------------------------------------------------------------------
 # Main script
 # ------------------------------------------------------------------------
 
-while True:
-        GPIO.output("USR3", GPIO.HIGH)
-        time.sleep(0.1)
-        GPIO.output("USR3", GPIO.LOW)
-        time.sleep(0.1)
+# testing of script / library
+if __name__ == "__main__":
+    while True:
+        print ("Simple Calculator")
+        
+        
+        (num1, num2, op) = get_user_input()
+        
+        try:
+            func = operators[op]
+            # print("{0}".format(func))
+            try:
+                result = func(num1,num2)
+                # integer type for >> and <<
+            except TypeError:
+                result = func(int(num1),int(num2))
+            print(result)
+        except:
+            #if (number1 is None) or (number2 is None) or (func is None):
+            #   print ("Quitting")
+            #   break
+            print("Quitting")
+            break
+
+if __name__ == "__main__":
+  pass
