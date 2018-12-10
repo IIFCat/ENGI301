@@ -1,0 +1,24 @@
+{
+    "Header": {
+        "Comment": "All values are metric (mm)",
+        "CreationDate": "2018-12-10T07:24:34Z",
+        "GenerationSoftware": {
+            "Application": "EAGLE",
+            "Vendor": "Autodesk",
+            "Version": "9.2.2"
+        },
+        "Part": "Single"
+    },
+    "Overall": {
+        "BoardThickness": 1.53,
+        "LayerNumber": 4,
+        "Name": {
+            "ProjectId": "Project2"
+        },
+        "Owner": "Sammi Lu <wl44@rice.edu>",
+        "Size": {
+            "X": 66.04,
+            "Y": 40.64
+        }
+    }
+}
